@@ -1,5 +1,5 @@
 import { useState } from "react"
-import './style/packages.css'
+import '../style/packages.css'
 
 function Packages() {
     
