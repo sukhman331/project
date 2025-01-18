@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import router from "./routes/members.js";
+
 dotenv.config();
 
 const app = express();
@@ -13,8 +15,9 @@ const options = {
 
 app.use(cors(options));
 
+// Database Intializing
 const MONGOURL = process.env.MONGO_URL;
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 8080;
 
 mongoose
     .connect(MONGOURL)
@@ -25,23 +28,7 @@ mongoose
         });
     }).catch((err) => console.log(err))
 
+// Routes
+app.use("/api/members", router);
 
-const memberSchema = new mongoose.Schema({
-    name: String,
-    id: Number,
-    });
-    
-const Members = mongoose.model("members", memberSchema);
-
-app.get("/api/members", async (req, res) => {
-
-    const result = await Members.find();
-    // res.json({name: "sukhman", id: 1});
-    res.json(result);
-
-})
-
-app.listen(8080, () => {
-    console.log('server started')
-})
     
