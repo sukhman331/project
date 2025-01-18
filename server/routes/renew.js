@@ -15,4 +15,11 @@ router.get("/", async(req, res) => {
     res.json(members);
 })
 
+router.post("/", async(req, res) => {
+
+    const renewInfo = req.body;
+
+    console.log(renewInfo)
+})
+
 export default router;

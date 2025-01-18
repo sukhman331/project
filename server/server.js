@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 
-import router from "./routes/members.js";
+// Routers
+import router from "./routes/renew.js";
+import addRouter from "./routes/add.js";
 
 dotenv.config();
 
@@ -29,6 +31,9 @@ mongoose
     }).catch((err) => console.log(err))
 
 // Routes
+app.use(express.json());
+
 app.use("/api/members", router);
+app.use("/new", addRouter);
 
     

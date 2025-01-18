@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import addMember from "../api/addMembers.js";
 
 function Add() {
 
@@ -12,6 +13,12 @@ function Add() {
         dob: null,
         userPackage: null
     });
+
+    const handleClick = event => {
+        event.preventDefault();
+
+        addMember(member);
+    };
 
     return (
         <div>
@@ -28,7 +35,7 @@ function Add() {
                     ))}
                 </select>
 
-                <button className="ad-btn">Add Member</button>
+                <button className="ad-btn" onClick={handleClick}>Add Member</button>
             </form>
         </div>
     )
