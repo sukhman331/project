@@ -3,20 +3,20 @@ import axios from "axios";
 
 import URLS from "./urls.js"
 
-function FetchMembers({q}) {
+function FetchMembers({query}) {
 
     const [members, setMember] = useState([]);
     
     useEffect(() => {
         const fetchMembers = async () => {
 
-            if (!q) {
+            if (!query) {
                 setMember([]);
                 return;
             }
 
             try {
-                const response = await axios.get(`${URLS.HTTP}/api/members?q=${q}`);
+                const response = await axios.get(`${URLS.HTTP}/api/members?q=${query}`);
                 console.log(response.data)
                 setMember(response.data)
 
@@ -27,7 +27,7 @@ function FetchMembers({q}) {
 
         fetchMembers();
         
-    }, [q])
+    }, [query])
 
     return (
         <div className="members-list">

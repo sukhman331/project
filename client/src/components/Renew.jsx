@@ -15,7 +15,7 @@ function Renew() {
             <form className="rn-form">
                 <input className="rn-search-name" type="text" placeholder="Member Name" onChange={(e) => setQuery(e.target.value)}/>
             </form>
-            <FetchMembers q={query}/>
+            <FetchMembers query={query}/>
         </div>
     );
 };  
