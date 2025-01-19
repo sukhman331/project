@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import addMember from "../api/addMembers.js";
+import addMember from "../api/add.js";
+import Message from "./Message.jsx";
 
 function Add() {
 
@@ -14,11 +15,26 @@ function Add() {
         userPackage: null
     });
 
+    const [showMessage, setShowMessage] = useState(false)
+
     const handleClick = event => {
         event.preventDefault();
 
+        if (fieldsMissing()) return;
+
+        // sends data to backend to add user
         addMember(member);
     };
+
+    // checking if any of the required fields are missing
+    const fieldsMissing = () => {
+        return !member.name || !member.mobile || !member.dob || !member.userPackage
+    };
+
+    // shows message that required fields are missing when hovering over add member btn
+    const mouseEnter = () => fieldsMissing() ? setShowMessage(true) : '';  
+
+    const mouseLeave = () => setShowMessage(false);
 
     return (
         <div>
@@ -31,12 +47,13 @@ function Add() {
                 <select className="ad-package" defaultValue='default' onChange={(e) => setMember({...member, userPackage: e.target.value})}>
                     <option disabled value='default'></option>
                     {packages.map((pack, index) => (
-                        <option key={index}>{pack}</option>
+                        <option value={pack} key={index}>{pack}</option>
                     ))}
                 </select>
 
-                <button className="ad-btn" onClick={handleClick}>Add Member</button>
+                <button className="ad-btn" onClick={handleClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>Add Member</button>
             </form>
+            {showMessage && <Message me='required fields missing'/>}
         </div>
     )
 }
