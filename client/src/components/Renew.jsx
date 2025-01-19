@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import '../style/renew.css';
 
-import FetchMembers from "../api/FetchMembers";
+import FetchMembers from "./FetchMembers";
 
 function Renew() {
     
