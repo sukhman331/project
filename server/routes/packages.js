@@ -19,7 +19,23 @@ packageRouter.post("/", async (req, res) => {
     console.log(newPackage)
 
     try {
-        const p = new Packages({...newPackage});
+
+        let duration;
+
+        switch (newPackage.type) {
+            case 'day':
+                duration = newPackage.duration;
+                break;
+            case 'week':
+                duration = (newPackage.duration * 7);
+                break;
+            case 'month':
+                duration = (newPackage.duration * 31);
+                break
+
+        }
+
+        const p = new Packages({...newPackage, duration: duration});
         await p.save();
         return res.status(201).json({ message: "Package created successfully", package: newPackage });
 

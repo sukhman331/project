@@ -14,7 +14,8 @@ function Add() {
         mobile: null,
         address: null,
         dob: null,
-        pack: null
+        pack: null,
+        expiring: null
     });
 
     const [showMessage, setShowMessage] = useState(false)
@@ -29,6 +30,18 @@ function Add() {
         return !member.name || !member.mobile || !member.dob || !member.pack
     };
 
+    const selectPackage = async event => {
+        const today = new Date();
+
+        const duration = parseInt(event.target.options[event.target.selectedIndex].getAttribute('data-duration'));
+
+        const expiring = new Date(today);
+        expiring.setDate(today.getDate() + duration);
+
+        setMember({...member, pack: event.target.value, expiring: expiring});
+
+    }
+
         return (
             <div>
                 <form className="ad-form">
@@ -37,12 +50,14 @@ function Add() {
                     <input className="ad-address" type="text" placeholder="Address" onChange={(e) => setMember({...member, address: e.target.value})}></input>
                     <input className="ad-dob" type="date" placeholder="Date of Birth" onChange={(e) => setMember({...member, dob: e.target.value})}></input>
 
-                    <select className="ad-package" defaultValue='default' onChange={(e) => setMember({...member, pack: e.target.value})}>
+                    <select className="ad-package" defaultValue='default' onChange={selectPackage}>
                         <option disabled value='default'></option>
                         {packages.map((pack, index) => (
-                            <option value={pack._id} key={index}>{pack.name}</option>
+                            <option value={pack._id} data-duration={pack.duration} key={index}>{pack.name}</option>
                         ))}
                     </select>
+
+                    <p>Pack will last till: {member.expiring && (member.expiring).toDateString()}</p>
 
                     <Button 
                         className='ad-btn' 
