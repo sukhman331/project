@@ -1,6 +1,9 @@
-function Message({me}) {
+function Message({m}) {
+
+
+
     return <div>
-        {me}
+        {m}
     </div>
 };
 

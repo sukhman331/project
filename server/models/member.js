@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-import autoIncrement from "mongoose-sequence";
-
-const AutoIncrement = autoIncrement(mongoose)
 
 const memberSchema = new mongoose.Schema({
     name: {
@@ -12,8 +9,9 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    userPackage: {
-        type: String,
+    pack: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'packages',
         required: true
     },
     dob: {
@@ -29,8 +27,6 @@ const memberSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
-memberSchema.plugin(AutoIncrement, {inc_field: "id"})
     
 const Members = mongoose.model("members", memberSchema);
 

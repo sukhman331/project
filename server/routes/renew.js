@@ -8,9 +8,11 @@ router.get("/", async(req, res) => {
 
     const query = req.query.q || '';
     
-    const members = await Members.find({
-        name: {$regex: query, $options: 'i'}
-    });
+    const members = await Members
+        .find({
+            name: {$regex: query, $options: 'i'}
+        })
+        .populate('pack')
     
     res.json(members);
 })

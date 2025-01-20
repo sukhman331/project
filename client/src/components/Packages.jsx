@@ -1,5 +1,8 @@
 import { useState } from "react"
 import '../style/packages.css'
+import { addPackage } from "../api/packages";
+import Button from "./Button";
+import Message from "./Message";
 
 function Packages() {
     
@@ -10,10 +13,10 @@ function Packages() {
         price: 0
     });
 
-    function createPackage(event) {
-        event.preventDefault();
+    const [showMessage, setShowMessage] = useState(false)
 
-        console.log(packages)
+    function missingFields() {
+        return !packages.name || !packages.type || !packages.duration || !packages.price;
     };
 
     return (
@@ -32,7 +35,15 @@ function Packages() {
                 <input className="pf-duration" type='number' placeholder="Duration" onChange={(e) => setPackage({...packages, duration:e.target.value})}></input>
                 <input className="pf-price" type='number' placeholder="Price" onChange={(e) => setPackage({...packages, price:e.target.value})}></input>
                 
-                <button className="pf-btn" onClick={createPackage}>Create Package</button>
+                <Button
+                    className='pf-btn'
+                    missingFields={missingFields}
+                    showMessage={setShowMessage}
+                    clickFunc={addPackage}
+                    value={packages}
+                >Create Package</Button>
+
+                {showMessage && <Message m='required fields missing'/>}
             </form>
         </div>
     )
