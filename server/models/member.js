@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+import autoIncrement from "mongoose-sequence"
 
 const memberSchema = new mongoose.Schema({
+    memberId: {
+        type: Number,
+        unique: true
+    },
     name: {
         type: String,
         required: true
@@ -25,9 +30,15 @@ const memberSchema = new mongoose.Schema({
     joining: {
         type: Date,
         default: Date.now
+    },
+    expiring: {
+        type: Date,
+        default: null
     }
 });
-    
+
+memberSchema.plugin(autoIncrement(mongoose), { inc_field: 'memberId' });
+
 const Members = mongoose.model("members", memberSchema);
 
 export default Members;

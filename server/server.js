@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 // Routers
 import router from "./routes/renew.js";
-import addRouter from "./routes/add.js";
+import memberRouter from "./routes/members.js";
 import packageRouter from "./routes/packages.js";
 
 dotenv.config();
@@ -36,7 +36,8 @@ app.use(express.json());
 
 
 app.use("/api/members", router); // get members by query
-app.use("/new", addRouter); // add new member
+app.use("/new", memberRouter); // add new member
+app.use("/members/get_all", memberRouter); // get all members
 app.use("/package/new", packageRouter); // add new package
 app.use("/package/get", packageRouter); // send JSON of all packages
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 import URLS from "./urls.js";
 
-const fetchMembersByQuery = async (query, setMember) => {
+export async function fetchMembersByQuery(query, setMember) {
 
     if (!query) {
         setMember([]);
@@ -19,4 +19,14 @@ const fetchMembersByQuery = async (query, setMember) => {
     };
 };
 
-export default fetchMembersByQuery;
+export async function fetchMembersAll(setList) {
+
+    try {
+        const response = await axios.get(`${URLS.HTTP}${URLS.getMembersAll}`)
+
+        setList(response.data)
+    } catch (err) {
+        console.error("Error fetching all members:", err)
+    }
+    
+}

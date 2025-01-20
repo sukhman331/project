@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-import fetchMembersByQuery from "../api/members";
+import { fetchMembersByQuery } from "../api/members";
+import MemberDisplay from "./MemberDisplay";
 
 function FetchMembers({query}) {
 
@@ -15,10 +16,8 @@ function FetchMembers({query}) {
     return (
         <div className="members-list">
             {members.length > 0 && 
-                members.map(({name, id}, index) => (
-                    <div key={index}>
-                        {name}
-                    </div>
+                members.map((member, index) => (
+                    <MemberDisplay key={index} info={member}/>
                 ))
             }
         </div>

@@ -1,8 +1,8 @@
+import MembersList from "../components/MembersList"
+
 function Members() {
     return (
-        <div>
-            Members List
-        </div>
+        <MembersList/>
     )
 }
 
