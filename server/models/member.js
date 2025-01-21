@@ -34,6 +34,10 @@ const memberSchema = new mongoose.Schema({
     expiring: {
         type: Date,
         default: null
+    },
+    timeLeft: {
+        type: Number,
+        default: 0
     }
 });
 

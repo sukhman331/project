@@ -1,20 +1,21 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-
-import Add from "../components/Add.jsx"
+import { useNavigate } from "react-router-dom";
 
 function Manage() {
+    const navigate = useNavigate();
+
+    const add = () => navigate("/manage/add");
+    const renew = () => navigate("/manage/renew");
 
     return(
         <div>
-            <div>
-                <Link to="/manage/add">Add Members</Link>
+            <div className="manage-add-btn" style={{cursor: "pointer"}} onClick={() => add()}>
+                Add Members
             </div>
-            <div>
-                <Link to="/manage/renew">Re-new Member</Link>
+            <div className="manage-renew-btn"  onClick={() => renew()}>
+                Re-new Member
             </div>
         </div>
     )
 }
 
-export default Manage
+export default Manage;

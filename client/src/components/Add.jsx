@@ -15,7 +15,8 @@ function Add() {
         address: null,
         dob: null,
         pack: null,
-        expiring: null
+        expiring: null,
+        timeLeft: null
     });
 
     const [showMessage, setShowMessage] = useState(false)
@@ -38,11 +39,12 @@ function Add() {
         const expiring = new Date(today);
         expiring.setDate(today.getDate() + duration);
 
-        setMember({...member, pack: event.target.value, expiring: expiring});
+        const timeLeft = Math.floor((expiring - today) / (1000 * 60 * 60 * 24)) 
+
+        setMember({...member, pack: event.target.value, expiring: expiring, timeLeft: timeLeft});
 
     }
-
-        return (
+        return (    
             <div>
                 <form className="ad-form">
                     <input className="ad-name" type="text" placeholder="Name" onChange={(e) => setMember({...member, name: e.target.value})}></input>

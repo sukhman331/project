@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Router, Routes, Route} from "react-router-dom";
 
 import Settings from "./pages/Settings.jsx";
 import Home from "./pages/Home.jsx";
@@ -11,6 +11,8 @@ import Renew from "./components/Renew.jsx";
 
 import NavBar from "./pages/NavBar.jsx";
 
+import MemberView from "./components/MemberView.jsx";
+
 function App() {
 
   return (
@@ -20,13 +22,14 @@ function App() {
       </div>
       <div className="navigation-btn-container"> 
         <Routes>
-          <Route path="*" element={<Home/>}></Route>
-          <Route path="/settings" element={<Settings/>}></Route>
-          <Route path="/members" element={<Members/>}></Route>
-          <Route path="/send" element={<Send/>}></Route>
-          <Route path="/manage" element={<Manage/>}></Route>
-          <Route path="/manage/add" element={<Add/>}></Route>
-          <Route path="/manage/renew" element={<Renew/>}></Route>
+          <Route path="*" element={<Home/>} />
+          <Route path="/settings" element={<Settings/>} />
+          <Route path="/members" element={<Members/>} />
+          <Route path="/send" element={<Send/>} />
+          <Route path="/manage" element={<Manage/>} />
+          <Route path="/manage/add" element={<Add/>} />
+          <Route path="/manage/renew" element={<Renew/>} />
+          <Route path="/member/:id" element={<MemberView />} />
         </Routes> 
       </div>
     </>
