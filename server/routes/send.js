@@ -1,5 +1,5 @@
 import express from "express";
-import WhatsAppClient from "../services/whatsappClient.js";
+import { sendImage, sendText } from "../services/templates.js";
 
 const sendRouter = express.Router();
 
@@ -9,20 +9,16 @@ sendRouter.get("/", (req, res) => {
 
 sendRouter.post("/", async (req, res) => {
 
-    try {
+    const {number, message} = req.body
 
-        const {number, message} = req.body;
+    const type = "text"
 
-        await WhatsAppClient.sendMessage(`${number}@c.us`, message);
+    await sendImage(number, "jsfhje", "hello world")
+    // sendText(type, number, message);
 
-        res.status(200).send("send message on whatsapp ");
+});
 
-    } catch (error) {
-        console.error("Error while sending message:", error);
-        res.status(500).send("Failed to send message")
-    }
- 
-}) 
+
 
 export default sendRouter;
 

@@ -9,9 +9,9 @@ import memberRouter from "./routes/members.js";
 import packageRouter from "./routes/packages.js";
 import sendRouter from "./routes/send.js";
 
-import WhatsAppClient from "./services/whatsappClient.js";
+import { WhatsAppClient } from "./services/whatsappClient.js";
 
-WhatsAppClient.initialize();
+// WhatsAppClient.initialize();
 
 dotenv.config();
 

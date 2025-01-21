@@ -2,7 +2,7 @@ import whatsappWeb from 'whatsapp-web.js';
 const { Client, LocalAuth } = whatsappWeb;
 import qrcode from "qrcode-terminal";
 
-const WhatsAppClient = new Client({
+export const WhatsAppClient = new Client({
     authStrategy: new LocalAuth 
 });
 
@@ -22,10 +22,24 @@ WhatsAppClient.on("message", async (msg) => {
             console.log(contact, msg.body)
         }
 
-
     } catch (err) {
         console.error('error:', err)
     }
 })
 
-export default WhatsAppClient;  
+export async function sendMessageUsingLib() {
+    try {
+
+        const {number, message} = req.body;
+
+        console.log(number, message)
+
+        await WhatsAppClient.sendMessage(`${number}@c.us`, message);
+
+        res.status(200).send("send message on whatsapp ");
+
+    } catch (error) {
+        console.error("Error while sending message:", error);
+        res.status(500).send("Failed to send message")
+    }
+};

@@ -3,14 +3,16 @@ import { getMessage, sendMessage } from "../api/send.js";
 
 function Send() {
 
-    const send = {
-        number: '919988619204',
-        message: 'hello tai'
-    }
-
     const [message, setMessage] = useState('')
+    const [number, setNumber] = useState('')
 
     function handleClick() {
+
+        const send = {
+            number: number,
+            message: message
+        }
+
         sendMessage(send);
     }
 
@@ -24,6 +26,11 @@ function Send() {
         <div>
             Send Messages
             {message}
+            <form>
+                <input placeholder="Message" onChange={(e) => setMessage(e.target.value)}/>
+                <input placeholder="Number" onChange={(e) => setNumber(e.target.value)}/>
+
+            </form>
             <button onClick={handleClick}>Send Message</button>
         </div>
     )
