@@ -3,7 +3,6 @@ import {Routes, Route} from "react-router-dom";
 import AddPackages from "./components/AddPackages.jsx";
 
 import Send from "./components/Send.jsx";
-
 import Add from "./components/Add.jsx"
 import Renew from "./components/Renew.jsx";
 
@@ -21,7 +20,7 @@ function App() {
   return (
       <SearchProvider>
           <div>
-            <p className="text-2xl font-bold text-blue-500">Hello mom!</p>
+            <p className="text font-bold color">Hello mom!</p>
               <SideBar />
               <NavBar /> 
           </div>
