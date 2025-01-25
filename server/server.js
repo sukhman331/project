@@ -36,15 +36,19 @@ mongoose
         });
     }).catch((err) => console.log(err))
 
-// Routes
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+
+// Routes
 
 app.use("/api/members", router); // get members by query
 app.use("/new", memberRouter); // add new member
 app.use("/members/get_all", memberRouter); // get all members
 app.use("/package/new", packageRouter); // add new package
 app.use("/package/get", packageRouter); // send JSON of all packages
-app.use("/send", sendRouter); // send WhatsApp message 
+app.use("/send", sendRouter); // send WhatsApp image message 
 app.use("/get_send", sendRouter); // display message 
+
 
     

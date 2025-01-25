@@ -24,6 +24,7 @@
     "nodemon": "^3.1.9",
     "puppeteer": "^24.1.0",
     "qrcode-terminal": "^0.12.0",
+    "sharp": "^0.33.5",
     "twilio": "^5.4.2",
     "wbm": "^1.1.16",
     "whatsapp-web.js": "^1.26.0"

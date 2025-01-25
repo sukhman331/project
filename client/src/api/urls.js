@@ -3,7 +3,9 @@ const URLS = {
     addPackage: "/package/new",
     getPackage: "/package/get",
     getMembersAll: "/members/get_all",
-    sendMessage: "/send"
+    sendImageMessage: "/send/image",
+    sendTextMessage: "/send/text"
+
 }
 
 export default URLS

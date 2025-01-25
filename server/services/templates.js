@@ -1,8 +1,11 @@
 import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
+import mime from "mime-types"
+import { IMAGE_NAME } from "../utils/constants.js";
+import deleteImage from "../utils/deleteImage.js";
 
-const WHATSAPP_TOKEN = 'EAAMieDy71swBO9MhO0LUaXtsnUEKpDufGSfHZBBAOrvnIbMIzqIUP1SgKEdwWoq2eU2HK5fVZCqDBYIRV362KbvVbXaaZBg1X57KDzbCNEsTXHQfzfGowIudo2QI7ni3DmBdhvDgpgky37YNXFrOgATNEl1ZCg1W5krzxG8bDI5qhgLnmO9ZAZB34b';
+const WHATSAPP_TOKEN = 'EAAMieDy71swBO1t9MN6TRxu0yPTo05n1ZBLIH3GH2kYCf1PGZBvyWveNdsuZA7fBmBcZC26m4lkJP7QQ65FZBclTB4F0XAGT4UdAnrekPHtjesuJNCgh63rb7B0lZBTsHlT4dWW8TCE7OQsMG8IOdrSwYW9uBs1ZBvpL5hA4dZAkQzqGaG3OWlhrJN5HkVmNaVKu0F4NTe75hEsRCjMX3bWZAlWhknUcl';
 const URL = "https://graph.facebook.com/v21.0/535232019673083/messages"
 const MEDIA_URL = "https://graph.facebook.com/v21.0/535232019673083/media"
 
@@ -35,34 +38,19 @@ export async function sendText(recipinet, body) {
     
 } 
 
-export async function sendImage(recipinet, imageLink, caption = '') { 
+export async function sendImage(recipinet, caption = '', extension) { 
 
-    // imageLink = 'https://dummyimage.com/600x400/000/fff.png&text=manfra.io';
-    imageLink = '/assets/download.png'
+    recipinet = '917973371511'
 
-    const imageLinkFormatted = new String(imageLink)
+    const imageID = await uploadImage(`/assets/${IMAGE_NAME}${extension}`)
 
-    let imageId;
+    deleteImage(extension);
+
     let imageBody = {
-        link: imageLink,
+        id: imageID,
         caption: caption
     }
 
-    if (imageLinkFormatted.endsWith(".png") || imageLinkFormatted.endsWith(".jpg")) {
-        
-        console.log("uploading image")
-
-        imageId = await uploadImage(imageLinkFormatted);
-
-        imageBody = {
-            id: imageId,
-            caption: caption
-        }
-    }
-
-    console.log(imageBody)
-
-    
     try {
 
         await axios({
@@ -80,6 +68,8 @@ export async function sendImage(recipinet, imageLink, caption = '') {
             })       
         });
 
+        console.log('message sent')
+
     } catch (error) {
         console.error('Error sending message:', error)
     }
@@ -90,26 +80,25 @@ async function uploadImage(imageLink) {
 
     console.log(imageLink)
 
-    let format = "image/png";
-
-    if (imageLink.endsWith("jpg")) {
-        format = "image/jpg"
-    }
+    const MIME_TYPE = mime.lookup(imageLink)
 
     const data = new FormData()
 
     data.append('messaging_product', 'whatsapp')
-    data.append('file', fs.createReadStream(process.cwd() + `${imageLink}`), { contentType: format })
+    data.append('file', fs.createReadStream(process.cwd() + `${imageLink}`), { contentType: MIME_TYPE })
     data.append('type', 'IMAGE')
 
     const response = await axios({
         url: MEDIA_URL,
         method: 'post',
         headers: {
-            'Authorization': `Bearer ${WHATSAPP_TOKEN}`
+            'Authorization': `Bearer ${WHATSAPP_TOKEN}`,
+            ...data.getHeaders(),
         },
         data: data
     })
+
+    console.log(response.data.id, "image id ")
 
     return response.data.id     
 }
