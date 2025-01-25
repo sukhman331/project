@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import URLS from "./urls.js";
 
 export async function fetchMembersByQuery(query, setMember) {

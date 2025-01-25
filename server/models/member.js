@@ -38,6 +38,10 @@ const memberSchema = new mongoose.Schema({
     timeLeft: {
         type: Number,
         default: 0
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'other']
     }
 });
 

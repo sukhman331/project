@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchContext } from "../utils/searchContent.jsx";
 import { fetchMembersAll } from "../api/members.js";
 import MemberDisplay from "./MemberDisplay.jsx";
 import FetchMembers from "./FetchMembers.jsx";
@@ -6,7 +7,9 @@ import FetchMembers from "./FetchMembers.jsx";
 function MembersList() {
 
     const [list, setList] = useState([])
-    const [query, setQuery] = useState('')
+    // const [query, setQuery] = useState('')
+
+    const { query } = useSearchContext();
 
     useEffect(() => {
 
@@ -15,12 +18,10 @@ function MembersList() {
     }, [])
 
     console.log(list)
+    console.log(query)
 
     return (
         <>
-            <form>
-                <input className="dm-query" placeholder="Search Members" onChange={(e) => setQuery(e.target.value)}/>
-            </form>
             {query !== '' 
             ? 
             <FetchMembers query={query}/>
@@ -28,6 +29,7 @@ function MembersList() {
             list.map((member, index) => (
                 <MemberDisplay key={index} info={member}/>
             ))}
+            
         </>
     )
 }

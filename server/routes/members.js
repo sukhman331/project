@@ -13,12 +13,13 @@ memberRouter.get("/", async(req, res) => {
 
 });
 
+// add new member 
 memberRouter.post("/", async(req, res) => {
 
-    const newMemberInfo = req.body
+    const newMemberInfo = req.body;
 
     const packageId = newMemberInfo.pack;
-    const {_id} = await Packages.findOne({_id: packageId})
+    const {_id} = await Packages.findOne({_id: packageId});
     
     // membering to database
     const newMember = new Members({...newMemberInfo, pack: _id});

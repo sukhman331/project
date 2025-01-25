@@ -5,6 +5,8 @@ import Message from "./Message.jsx";
 import { getPackage } from "../api/packages.js";
 import Button from "./Button.jsx";
 
+// import addMember from 
+
 function Add() {
 
     const [packages, setPackages] = useState([]);
@@ -16,7 +18,8 @@ function Add() {
         dob: null,
         pack: null,
         expiring: null,
-        timeLeft: null
+        timeLeft: null,
+        gender: null
     });
 
     const [showMessage, setShowMessage] = useState(false)
@@ -51,9 +54,14 @@ function Add() {
                     <input className="ad-mobile-no" type="tel" placeholder="Mobile No." onChange={(e) => setMember({...member, mobile: e.target.value})}></input>
                     <input className="ad-address" type="text" placeholder="Address" onChange={(e) => setMember({...member, address: e.target.value})}></input>
                     <input className="ad-dob" type="date" placeholder="Date of Birth" onChange={(e) => setMember({...member, dob: e.target.value})}></input>
-
+                    <select className="ad-gender" defaultValue='default' onChange={(e) => setMember({...member, gender: e.target.value})}>
+                        <option disabled value='default'>Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
                     <select className="ad-package" defaultValue='default' onChange={selectPackage}>
-                        <option disabled value='default'></option>
+                        <option disabled value='default'>Select Package</option>
                         {packages.map((pack, index) => (
                             <option value={pack._id} data-duration={pack.duration} key={index}>{pack.name}</option>
                         ))}
