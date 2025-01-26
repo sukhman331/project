@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import { searchBarVisibilty } from '../utils/constants';
-import capitalize from '../utils/capitalize';
 import NavBtn from './NavBtn';
 
 function NavBar() {
@@ -10,11 +9,12 @@ function NavBar() {
     const currentUrl = location.pathname;
 
     return (
-        <div className="nav-bar">
+        <div className="flex flex-row bg-gray-400 h-24 p-7 items-center justify-between">
             {searchBarVisibilty.includes(currentUrl) ?
-             <SearchBar /> : 
-                ''
+            <SearchBar /> : 
+            ''
             }
+            <div className='flex items-center space-x-4'>
             {location.pathname.includes("/member") && 
                 <>
                     <NavBtn to={"/member/add"}>Add Member</NavBtn>
@@ -26,8 +26,8 @@ function NavBar() {
                 <>
                     <NavBtn to={"package/add"}>Add Package</NavBtn>
                 </>
-            }
-            
+            }           
+            </div>
         </div>
     )
 }

@@ -7,13 +7,13 @@ export async function addPackage(packageInfo) {
 
 }
 
-export async function getPackage(setPackage) {
+export async function getPackage() {
 
     try {
         const response = await axios.get(`${URLS.HTTP}${URLS.getPackage}`);
         console.log(response.data);
 
-        setPackage(response.data);   
+        return response.data;
 
     } catch (err) {
         console.error('error while fetching packages:', err);

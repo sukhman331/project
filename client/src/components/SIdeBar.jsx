@@ -3,7 +3,7 @@ import{ Link } from "react-router-dom";
 function SideBar() {
     return (
         <>
-            <nav>
+            <nav className="flex flex-col h-screen w-64 bg-gray-800 text-white">
                 <Link to="/member">Members</Link>
                 <Link to="/package">Packages</Link>
                 <Link to="/send">Message</Link>

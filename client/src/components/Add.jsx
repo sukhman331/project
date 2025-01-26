@@ -5,80 +5,95 @@ import Message from "./Message.jsx";
 import { getPackage } from "../api/packages.js";
 import Button from "./Button.jsx";
 
+import dayjs from "dayjs";
+import { useQuery } from "@tanstack/react-query";
+
 // import addMember from 
 
 function Add() {
 
-    const [packages, setPackages] = useState([]);
-
     const [member, setMember] = useState({
-        name: null,
+        first: null,
+        middle: null,
+        last: null,
         mobile: null,
-        address: null,
+        street: null,
+        city: null,
+        state: null,
+        pincode: null,
         dob: null,
         pack: null,
         expiring: null,
-        timeLeft: null,
-        gender: null
+        gender: null,
+        emergency: null,
     });
 
     const [showMessage, setShowMessage] = useState(false)
 
-    useEffect(() => {
-        getPackage(setPackages);
-        
-    }, []);
+    const {data} = useQuery({
+        queryKey: ["packages"],
+        queryFn: getPackage
+    })
 
     // checking if any of the required fields are missing
     const fieldsMissing = () => {
-        return !member.name || !member.mobile || !member.dob || !member.pack
+        return !member.first || !member.last || !member.mobile || !member.dob || !member.pack
     };
 
     const selectPackage = async event => {
-        const today = new Date();
-
         const duration = parseInt(event.target.options[event.target.selectedIndex].getAttribute('data-duration'));
 
-        const expiring = new Date(today);
-        expiring.setDate(today.getDate() + duration);
+        const now = dayjs();
+        const expiring = now.add(duration, 'day') 
 
-        const timeLeft = Math.floor((expiring - today) / (1000 * 60 * 60 * 24)) 
-
-        setMember({...member, pack: event.target.value, expiring: expiring, timeLeft: timeLeft});
+        setMember({...member, pack: event.target.value, expiring: expiring});
 
     }
-        return (    
-            <div>
-                <form className="ad-form">
-                    <input className="ad-name" type="text" placeholder="Name" onChange={(e) => setMember({...member, name: e.target.value})}></input>
-                    <input className="ad-mobile-no" type="tel" placeholder="Mobile No." onChange={(e) => setMember({...member, mobile: e.target.value})}></input>
-                    <input className="ad-address" type="text" placeholder="Address" onChange={(e) => setMember({...member, address: e.target.value})}></input>
-                    <input className="ad-dob" type="date" placeholder="Date of Birth" onChange={(e) => setMember({...member, dob: e.target.value})}></input>
-                    <select className="ad-gender" defaultValue='default' onChange={(e) => setMember({...member, gender: e.target.value})}>
+
+    // input field styling
+
+    return (    
+        <>
+            <form className="flex flex-row flex-wrap gap-2 ">
+                <section>
+                    <input className="inputFields" type="text" placeholder="First Name" onChange={(e) => setMember({...member, first: e.target.value})}></input>
+                    <input className="inputFields" type="text" placeholder="Middle Name" onChange={(e) => setMember({...member, middle: e.target.value})}></input>
+                    <input className="inputFields" type="text" placeholder="Last Name" onChange={(e) => setMember({...member, last: e.target.value})}></input>
+                </section>
+                <section>
+                    <input className="inputFields" type="tel" placeholder="Mobile No." onChange={(e) => setMember({...member, mobile: e.target.value})}></input>
+                    <input className="inputFields" type="date" placeholder="Date of Birth" onChange={(e) => setMember({...member, dob: e.target.value})}></input>
+                    <select className="inputFields" defaultValue='default' onChange={(e) => setMember({...member, gender: e.target.value})}>
                         <option disabled value='default'>Select gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select>
-                    <select className="ad-package" defaultValue='default' onChange={selectPackage}>
-                        <option disabled value='default'>Select Package</option>
-                        {packages.map((pack, index) => (
-                            <option value={pack._id} data-duration={pack.duration} key={index}>{pack.name}</option>
-                        ))}
-                    </select>
+                </section>
+                <input className="inputFields" type="text" placeholder="Street" onChange={(e) => setMember({...member, street: e.target.value})}></input>
+                <input className="inputFields" type="text" placeholder="City" onChange={(e) => setMember({...member, city: e.target.value})}></input>
+                <input className="inputFields" type="text" placeholder="State" onChange={(e) => setMember({...member, state: e.target.value})}></input>
+                <input className="inputFields" type="text" placeholder="Pincode" onChange={(e) => setMember({...member, pincode: e.target.value})}></input>
+                <input className="inputFields" type="tel" placeholder="Emerengy Number" onChange={(e) => setMember({...member, emergency: e.target.value})}></input>
+                
+                <select className="inputFields" defaultValue='default' onChange={selectPackage}>
+                    <option disabled value='default'>Select Package</option>
+                    {data?.map((pack, index) => (
+                        <option value={pack._id} data-duration={pack.duration} key={index}>{pack.name}</option>
+                    ))}
+                </select>
 
-                    <p>Pack will last till: {member.expiring && (member.expiring).toDateString()}</p>
 
-                    <Button 
-                        className='ad-btn' 
-                        missingFields={fieldsMissing} 
-                        showMessage={setShowMessage} 
-                        clickFunc={addMember}
-                        value={member}
-                    >Add Member</Button>
-                </form>
-            {showMessage && <Message m='required fields missing'/>}
-        </div>
+            </form>
+            <Button 
+                missingFields={fieldsMissing} 
+                showMessage={setShowMessage} 
+                clickFunc={addMember}
+                value={member}
+                >Add Member</Button>
+            <p>Pack will last till: {member.expiring && (member.expiring).format("YYYY-MM-DD")}</p>
+        {showMessage && <Message m='required fields missing'/>}
+    </>
     )
 }
 

@@ -14,7 +14,7 @@ function Button({className, missingFields, showMessage, clickFunc, value, childr
 
     return (  
         <button 
-            className={className}
+            className="cursor-pointer border-2 rounded-lg h-[40px] p-1.5"
             onMouseEnter={mouseEnter}
             onMouseLeave={mouseLeave}
             onClick={handleClick}

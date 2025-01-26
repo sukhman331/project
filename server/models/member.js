@@ -6,11 +6,30 @@ const memberSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
-    name: {
+    first: {
         type: String,
         required: true
     },
-    address: {
+    middle: {
+        type: String,
+    },
+    last: {
+        type: String,
+        required: true
+    },
+    street: {
+        type: String,
+        required: false
+    },
+    city: {
+        type: String,
+        required: false
+    },
+    state: {
+        type: String,
+        required: false
+    },
+    pincode: {
         type: String,
         required: false
     },

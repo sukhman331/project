@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { fetchMembersByQuery } from "../api/members.js";
 import MemberDisplay from "./MemberDisplay.jsx";
 

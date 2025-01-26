@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import toDate from "../utils/toDate";
+import toDate from "../utils/toDate.js";
 
 function MemberView() {
 
