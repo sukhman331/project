@@ -9,7 +9,7 @@ function NavBar() {
     const currentUrl = location.pathname;
 
     return (
-        <div className="flex flex-row bg-gray-400 h-24 p-7 items-center justify-between">
+        <div className="flex flex-row dark:bg-zinc-900 h-24 p-7 items-center justify-between">
             {searchBarVisibilty.includes(currentUrl) ?
             <SearchBar /> : 
             ''

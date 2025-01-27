@@ -26,7 +26,7 @@ function MembersList() {
         
         <div className="flex flex-col ">
             {(filtered && filtered?.length !== 0) && (
-                <section className="grid grid-cols-4 gap-4 text-center p-4">
+                <section className="grid grid-cols-4 gap-4 text-center p-4 ">
                     <span className="font-semibold">ID</span>
                     <span className="font-semibold">Name</span>
                     <span className="font-semibold">Expiring On</span>

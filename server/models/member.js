@@ -10,14 +10,15 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    middle: {
-        type: String,
-    },
     last: {
         type: String,
         required: true
     },
     street: {
+        type: String,
+        required: false
+    },
+    landmark: {
         type: String,
         required: false
     },
@@ -42,21 +43,29 @@ const memberSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
+    email: {
+        type: String
+    },
     mobile: {
         type: String,
         required: true
+    },
+    emergencyName: {
+        type: String
+    },
+    emergencyNumber: {
+        type: String
     },
     joining: {
         type: Date,
         default: Date.now
     },
+    medicalConditions : {
+        type: String
+    },
     expiring: {
         type: Date,
         default: null
-    },
-    timeLeft: {
-        type: Number,
-        default: 0
     },
     gender: {
         type: String,

@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import '../style/renew.css';
-
 function Renew() {
     
     const [query, setQuery] = useState('')

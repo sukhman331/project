@@ -21,11 +21,11 @@ function App() {
 
     return (
         <SearchProvider>
-            <div className="flex flex-row h-screen">
+            <div className="flex flex-row h-screen font-sans">
                 <SideBar />
                 <div className="flex flex-col flex-1">
                     <NavBar /> 
-                    <div className="flex-1 overflow-y-auto p-3.5 "> 
+                    <div className="flex-1 overflow-y-auto p-3.5 dark:bg-dark_bg"> 
                         <QueryClientProvider client={queryClient}>
                             <Routes>
                                 <Route path="/package" element={<PackageList/>}></Route>

@@ -1,5 +1,45 @@
 @import 'tailwindcss';
 
-.inputFields {
-    @apply border-2 border-gray-400 rounded-sm p-0.5 pl-1.5 w-3xs;
+@theme {
+    --color-dark_bg: #0e0e0e;
+    --color-dark_text: #F5F5F5;
+    --color-primary : #1E90FF;
+    --color-section: #2C2C2C; 
+    --color-sectionBorder: #19191a;
+    --color-input_border: #6e6e73;
+    --color-placeholderColor: #757575; 
 }
+
+@theme {
+    --color-input_bg: #262628;
+    --color-form_bg: #1f1f1f;
+    --color-text_color: #f5f5f7;
+    --color-foothead: #424245;
+}
+
+.input_field {
+    @apply border-[1px] border-input_border bg-input_bg placeholder-input_border text-text_color font-semibold 
+    rounded-xl p-0.5 pl-1.5  h-[45px] m-1 focus:ring focus:ring-primary focus:border-primary focus:border-2 outline-none
+    shadow-2xl;
+}
+
+.big {
+    @apply w-3xs
+}
+
+.small {
+    @apply w-[168px]
+}
+
+.bottom_line {
+    @apply border-b-[1px] rounded-[1px] border-input_border mt-9 pb-9 shadow-2xs ;
+}
+
+.headers{
+    @apply mb-1 text-xl font-semibold text-text_color ; 
+}
+
+.topbottom {
+    @apply flex flex-col justify-center items-center shadow-2xs bg-foothead w-2xl h-[80px] 
+}
+
