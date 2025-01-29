@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getMessage, sendImageMessage } from "../api/send.js";
 import getImageSrc from "../utils/getImageSrc.js";
+import MessagePreview from "./MessagePreview.jsx";
+import { useModalContext } from "../utils/modalContext.jsx";
 
 function Send() {
 
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('Preview Message')
     const [number, setNumber] = useState('')
     const [imagePreview, setImagePreview] = useState()
     const [image, setImage] = useState()
@@ -26,6 +28,17 @@ function Send() {
         sendImageMessage(newForm);
     }
 
+    const { setVisible } = useModalContext();
+
+
+    function selectMembers() {
+
+        console.log("select button clicked")
+        setVisible({visible: true, path: "select_member"})
+
+        
+    }
+
     function handleFileSubmission(event) {
 
         const file = event.target.files[0];
@@ -35,23 +48,21 @@ function Send() {
         
     };
 
-    useEffect(() => {
-
-        getMessage(setMessage);
-
-    }, [])
-
     return (
-        <div>
-            Send Messages
-            {message}
-            <form>
-                <input placeholder="Message" onChange={(e) => setMessage(e.target.value)}/>
-                <input placeholder="Number" onChange={(e) => setNumber(e.target.value)}/>
-                <img alt="Select image to preview" src={imagePreview}/>
-                <input placeholder="Image" type="file" accept="image/*"onChange={handleFileSubmission}/>
-            </form>
-            <button onClick={handleClick}>Send Message</button>
+        <div className="flex flex-row flex-wrap">
+            <div className="flex-1">
+                Send Messages
+                {message}
+                <form>
+                    <input placeholder="Message" className="input_field big" onChange={(e) => setMessage(e.target.value)}/>
+                    <input placeholder="Number" id="recipient_number" className="input_field big" onChange={(e) => setNumber(e.target.value)}/>
+                    <input placeholder="Image" type="file" accept="image/*"onChange={handleFileSubmission}/>
+                </form>
+                {/* <Button /> */}
+                <button onClick={handleClick}>Send Message</button>
+                <button onClick={selectMembers}>SELECT MEMBERS</button>
+            </div>
+            <MessagePreview preview={imagePreview} message={message}/>
         </div>
     )
 }

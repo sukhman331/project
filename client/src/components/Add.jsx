@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import addMember from "../api/add.js";
-import Message from "./Message.jsx";
 import { getPackage } from "../api/packages.js";
 import Button from "./Button.jsx";
 
@@ -10,6 +9,8 @@ import { Link } from "react-router-dom"
 import dayjs from "dayjs";
 import { useQuery } from "@tanstack/react-query";
 import { indianStates } from "../utils/constants.js";
+import { useModalContext } from "../utils/modalContext.jsx";
+import Button2 from "./Button2.jsx";
 
 // import addMember from 
 
@@ -54,25 +55,36 @@ function Add() {
 
     }
 
+    const { visible, setVisible } = useModalContext();
+    function handleClick() {
+        
+        console.log("div clikced")
+        setVisible(!visible.visible)
+    };
+    function customPackage() {
+        
+        console.log("custom clikced")
+        setVisible({visible: true , path: "add_package"})
+    };
+
     // input field styling
 
     return (    
         <>
-        <div className="flex flex-col items-center">
-            <form className="flex flex-row flex-wrap relative
-                items-center justify-center max-w-2xl bg-form_bg shadow-2xl rounded-3xl"
+            <form className="flex flex-col flex-wrap 
+             place-items-center justify-center max-w-2xl bg-form_bg shadow-2xl rounded-3xl"
             >   
-                <section className="topbottom rounded-t-3xl border-b-[1px]">
-                    <span className="text-4xl text-text_color font-semibold shadow-2xl">Add New Member</span>
+                <section className="p-5 pt-8">
+                    <span className="text-6xl text-text_color font-bold shadow-2xs">Add New Member</span>
                 </section>
 
                 <section className="bottom_line">
                     {/* <p className="headers">Personal Information</p> */}
-                    <section className="">
+                    <section className="form_section">
                         <input className="input_field big" type="text" placeholder="First Name" onChange={(e) => setMember({...member, first: e.target.value})}></input>
                         <input className="input_field big" type="text" placeholder="Last Name" onChange={(e) => setMember({...member, last: e.target.value})}></input>  
                     </section>
-                    <section className="">
+                    <section className="form_section">
                         <input className="input_field small" type="tel" placeholder="Mobile No." onChange={(e) => setMember({...member, mobile: e.target.value})}></input>
                         <input className="input_field small" type="date" placeholder="Date of Birth" onChange={(e) => setMember({...member, dob: e.target.value})}></input>
                         <select className="input_field small" defaultValue='default' onChange={(e) => setMember({...member, gender: e.target.value})}>
@@ -87,12 +99,12 @@ function Add() {
                 <section className="bottom_line">
                 {/* <p className="headers">Address</p> */}
 
-                    <section>
+                    <section className="form_section">
                         <input className="input_field big" type="text" placeholder="Street" onChange={(e) => setMember({...member, street: e.target.value})}></input>
                         <input className="input_field big" type="text" placeholder="Landmark" onChange={(e) => setMember({...member, landmark: e.target.value})}></input>
                     </section>
 
-                    <section >
+                    <section className="form_section">
                         <input className="input_field small" type="text" placeholder="City" onChange={(e) => setMember({...member, city: e.target.value})}></input>
                         <select className="input_field small" defaultValue='default' onChange={(e) => setMember({...member, state: e.target.value})}>
                             <option disabled value='default'>Select State</option>
@@ -104,7 +116,7 @@ function Add() {
                     </section>
                 </section>
             
-                <section className="bottom_line ">
+                <section className="bottom_line form_section">
                 {/* <p className="headers">Emergency Contact</p> */}
 
                     <input className="input_field big" type="tel" placeholder="Emerengy Contact" onChange={(e) => setMember({...member, emergencyName: e.target.value})}></input>
@@ -119,21 +131,20 @@ function Add() {
                             <option value={pack._id} data-duration={pack.duration} key={index}>{pack.name}</option>
                         ))}
                     </select>
-                    <Link to="/package/add" className="text-primary font-semibold p-2.5 ">Add custom package</Link>
+                    <a onClick={customPackage} className="text-primary font-semibold p-2.5 ">Add custom package</a>
                 </section>
-                <section className="topbottom rounded-b-3xl border-t-[1px]">
+                <section className="bottom">
+                    <Button2 clickFunc={handleClick}>Cancel</Button2>
                     <Button 
                         missingFields={fieldsMissing} 
                         showMessage={setShowMessage} 
                         clickFunc={addMember}
                         value={member}
+                        exit={handleClick}
                         >Add Member
                     </Button>
                 </section>
             </form>
-        </div>
-            <p className="paragraph">Pack will last till: {member.expiring && (member.expiring).format("YYYY-MM-DD")}</p>
-        {showMessage && <Message m='required fields missing'/>}
     </>
     )
 }

@@ -1,4 +1,6 @@
-function Button({missingFields, showMessage, clickFunc, value, children}) {
+import { useModalContext } from "../utils/modalContext.jsx";
+
+function Button({missingFields, showMessage, clickFunc, exit, value, children}) {
 
     const beforeClasses = "border-primary bg-primary";
     const missingFieldsClass = "border-red-900 bg-red-900"
@@ -25,8 +27,6 @@ function Button({missingFields, showMessage, clickFunc, value, children}) {
         btn.classList.add(...beforeClasses.split(' '));
     }
 
-    
-
     const handleClick = (event) => {
         event.preventDefault();
 
@@ -34,13 +34,15 @@ function Button({missingFields, showMessage, clickFunc, value, children}) {
             return;
         }
         clickFunc(value);
+        exit();
+            
     };
 
 
     return (  
         <button 
             className="cursor-pointer border-2 rounded-lg h-[45px] small text-xl p-1.5 border-primary
-                     bg-primary text-text_color font-semibold"
+             bg-primary text-text_color font-semibold"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}

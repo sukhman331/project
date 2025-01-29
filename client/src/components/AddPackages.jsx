@@ -24,7 +24,7 @@ function Packages() {
                 <form className="flex flex-col flex-wrap relative
                     items-center justify-center max-w-2xl bg-form_bg shadow-2xl rounded-3xl"
                 > 
-                    <section className="topbottom rounded-t-3xl border-b-[1px]">
+                    <section className="p-5 pt-9">
                         <span className="text-4xl text-text_color font-semibold shadow-2xl">Add New Package</span>
                     </section>
                     
@@ -45,7 +45,7 @@ function Packages() {
                     <section className="pt-9 pb-9">
                         <input className="input_field big" type='text' placeholder="Price" onChange={(e) => setPackage({...packages, price:e.target.value})}></input>
                     </section>
-                    <section className="topbottom rounded-b-3xl border-t-[1px]">
+                    <section className="bottom rounded-b-3xl border-t-[1px]">
                         <Button
                             missingFields={missingFields}
                             showMessage={setShowMessage}
@@ -55,7 +55,6 @@ function Packages() {
                     </section>
                 </form>
             </div>
-                    {showMessage && <Message m='required fields missing'/>}
         </>
     )
 }

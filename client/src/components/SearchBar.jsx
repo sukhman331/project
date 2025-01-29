@@ -14,7 +14,7 @@ function SearchBar() {
     return (
         <>
             <input
-                className="border-gray-950 border-2 rounded-2xl h-10 "
+                className="input_field big"
                 placeholder="Search" 
                 type="search"
                 onChange={handleChange}

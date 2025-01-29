@@ -14,6 +14,11 @@ import MembersList from "./components/MembersList.jsx";
 
 import { SearchProvider } from "./utils/searchContent.jsx";
 import PackageList from "./components/PackageList.jsx";
+import ToolBar from "./components/ToolBar.jsx";
+import { ModalProvider, useModalContext } from "./utils/modalContext.jsx";
+import Modal from "./components/Modal.jsx";
+import { SelectProvider } from "./utils/selectContext.jsx";
+
 
 function App() {
 
@@ -21,25 +26,28 @@ function App() {
 
     return (
         <SearchProvider>
-            <div className="flex flex-row h-screen font-sans">
-                <SideBar />
-                <div className="flex flex-col flex-1">
-                    <NavBar /> 
-                    <div className="flex-1 overflow-y-auto p-3.5 dark:bg-dark_bg"> 
-                        <QueryClientProvider client={queryClient}>
+        <ModalProvider>
+        <SelectProvider>
+            <QueryClientProvider client={queryClient}>
+                <div className="flex flex-row h-screen font-sans">
+                    <SideBar />
+                    <div className="flex flex-1 flex-col dark:bg-dark_bg shadow-2xl z-20">
+                        <NavBar /> 
+                        <ToolBar />
+                        <Modal />
+                        <div className="flex-1 flex flex-col items-center overflow-y-auto p-4 "> 
                             <Routes>
                                 <Route path="/package" element={<PackageList/>}></Route>
-                                <Route path="/package/add" element={<AddPackages/>} />
                                 <Route path="/member" element={<MembersList/>} />
                                 <Route path="/send" element={<Send/>} />
-                                <Route path="/member/add" element={<Add/>} />
-                                <Route path="/member/renew" element={<Renew/>} />
                                 <Route path="/member/:id" element={<MemberView />} />
                             </Routes> 
-                        </QueryClientProvider>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </QueryClientProvider>
+        </SelectProvider>
+        </ModalProvider>
         </SearchProvider>
     )
 };

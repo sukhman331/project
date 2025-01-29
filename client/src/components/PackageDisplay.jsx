@@ -16,7 +16,7 @@ function PackageDisplay({info}) {
         
     return (
 
-        <div className="h-12 grid grid-cols-4 gap-4 text-center p-4">
+        <div className="grid_layout hover:shadow-2xl hover:bg-input_bg cursor-pointer">
             <span>{info.name}</span>
             <span>{info.type}</span>
             <span>{getDuration()}</span>

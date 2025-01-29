@@ -6,11 +6,12 @@ const router = express.Router();
 
 router.get("/", async(req, res) => {
 
-    const query = req.query.q || '';
+    const query = req.query.q.toLowerCase() || '';
+    console.log(query)
     
     const members = await Members
         .find({
-            name: {$regex: query, $options: 'i'}
+            first: {$regex: query, $options: 'i'}
         })
         .populate('pack')
     

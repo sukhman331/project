@@ -1,6 +1,7 @@
 import { getPackage } from "../api/packages.js";
 import { useQuery } from "@tanstack/react-query";
 import PackageDisplay from "./PackageDisplay.jsx";
+import { useSelectContext } from "../utils/selectContext.jsx";
 
 function PackageList() {
 
@@ -9,10 +10,11 @@ function PackageList() {
         queryFn: getPackage
     })
 
+
     return (
         <>
-            <div className="flex flex-col p-3.5">
-                <section className="grid grid-cols-4 gap-4 text-center p-4">
+            <div className="flex flex-col w-full">
+                <section className="grid_layout text-3xl shadow-2xl">
                     <span className="font-semibold">Name</span>
                     <span className="font-semibold">Type</span>
                     <span className="font-semibold">Duration</span>
